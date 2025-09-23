@@ -12,3 +12,4 @@ D:\U\Cuatri XII\Progra Avanzada Web\FI22023682-web\PP1\Ejercicio\obj\Debug\net8.
 D:\U\Cuatri XII\Progra Avanzada Web\FI22023682-web\PP1\Ejercicio\obj\Debug\net8.0\Ejercicio.pdb
 D:\U\Cuatri XII\Progra Avanzada Web\FI22023682-web\PP1\Ejercicio\obj\Debug\net8.0\Ejercicio.genruntimeconfig.cache
 D:\U\Cuatri XII\Progra Avanzada Web\FI22023682-web\PP1\Ejercicio\obj\Debug\net8.0\ref\Ejercicio.dll
+D:\U\Cuatri XII\Progra Avanzada Web\FI22023682-web\PP1\Ejercicio\obj\Debug\net8.0\Ejercicio.sourcelink.json
