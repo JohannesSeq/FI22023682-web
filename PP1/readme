@@ -1,0 +1,5 @@
+Johannes Sequeira - FI22023682
+Comandos utilizados para crear el ejerccicio
+dotnet new sln --name pp1 #Crea la solucion
+dotnet new console -f net8.0 -o Ejercicio #Crea el proyecto del ejercicio
+dotnet sln add Ejercicio #Agrega el proyecto a la solucion
