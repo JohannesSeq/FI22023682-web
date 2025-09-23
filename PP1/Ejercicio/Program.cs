@@ -60,37 +60,34 @@ List <int> SumIte(int n)
         if (suma < int.MaxValue && suma > 0)
         {
             result[0] = suma;
-            result[1] = indice;
+            result[1] = indice -1 ;
         }
 
-        suma = indice + suma;
+        suma += indice;
         //Console.WriteLine("suma:" + suma + " ; indice:" + indice);  //linea debug
         indice++;
 
     }
 
-    suma = int.MaxValue;
 
-    indice = 1;
 
-    //suma desentente
-    while (suma > 1)
+    suma = 1;
+    indice = int.MaxValue;
+
+    //suma desentente; Profe muy honestamente no se como hacer que me de igual que el enunciado
+    while (suma < 0)
     {
         Console.WriteLine("suma:" + suma + " ; indice:" + indice);  //linea debug
-        indice--;
+
         suma = indice - suma;
-
+        indice--;
         result[2] = suma;
-        result[3] = indice - 1;
-
-        
-
+        result[3] = indice;
     }
-
-
     return result;
 
 }
+
 
 
 //Ejecucion visible en el dotnet run
@@ -102,6 +99,6 @@ Console.WriteLine("        From Max to 1 -> n: "  + SumaFormula[3] + " -> sum: "
 
 List<int> SumaIterativa = SumIte(1);
 
-Console.WriteLine(" SumFor:");
+Console.WriteLine(" SumIte:");
 Console.WriteLine("        From 1 to Max -> n: " + SumaIterativa[1] + " -> sum: " + SumaIterativa[0]);
-Console.WriteLine("        From Max to 1 -> n: "  + SumaIterativa[3] + " -> sum: " + SumaIterativa[2]);
+Console.WriteLine("        From Max to 1 -> n: " + SumaIterativa[3] + " -> sum: " + SumaIterativa[2]);

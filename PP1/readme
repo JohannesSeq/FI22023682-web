@@ -3,3 +3,10 @@ Comandos utilizados para crear el ejerccicio
 dotnet new sln --name pp1 #Crea la solucion
 dotnet new console -f net8.0 -o Ejercicio #Crea el proyecto del ejercicio
 dotnet sln add Ejercicio #Agrega el proyecto a la solucion
+
+Respuesta a las preguntas:
+Por qué todos los valores resultantes tanto de n como de sum difieren entre métodos (fórmula e implementación iterativa) y estrategias (ascendente y descendente)?
+R/ Debido a que la formula que se utilizo es diferente asi como el metodo que se uso para realizar el calculo. En la formula se aplica directamente el calculo mientras que en el iterativo se aplica mediante el cumulo de los calculos anteriores realizados por el ciclo.
+
+¿Qué cree que sucedería si se utilizan las mismas estrategias (ascendente y descendente) pero con el método recursivo de suma (SumRec)? [si desea puede implementarlo y observar qué sucede en ambos escenarios]
+R/ Desde mi punto de vista, deberia de funcionar de forma similar, debido a que la recursividad fuciona de cierta manera para ciclar un proceso en si mismo
