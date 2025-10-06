@@ -19,7 +19,7 @@
     <div class = "form-group">
         <label for="exampleInputEmail1">Numero B</label>
         <input type="text" class="form-control" id="b" placeholder="Ingrese el segundo numero binario" asp-for="b">
-        <span asp-validation-for="a" class="text-danger"></span>
+        <span asp-validation-for="b" class="text-danger"></span>
     </div>
     <br />
     <button type="submit" class="btn btn-primary">Calcular</button>
@@ -44,45 +44,45 @@
         <tbody>
             <tr>
                 <td>a</td>
+                <td>@Model.a</td>
                 <td>0</td>
-                <td>0</td>
-                <td>0</td>
+                <td>@Model.ConversionDec(Model.a)</td>
                 <td>0</td>                
             </tr>
             <tr>
-                <td>B</td>
+                <td>b</td>
+                <td>@Model.b</td>
                 <td>0</td>
-                <td>0</td>
-                <td>0</td>
+                <td>@Model.ConversionDec(Model.b)</td>
                 <td>0</td>
             </tr>
             <tr>
                 <td>a AND b</td>
+                <td>@Model.aAndb</td>
                 <td>0</td>
-                <td>0</td>
-                <td>0</td>
+                <td>@Model.ConversionDec(Model.aAndb)</td>
                 <td>0</td>
             </tr>
 
             <tr>
                 <td>a OR b</td>
+                <td>@Model.aOrb</td>
                 <td>0</td>
-                <td>0</td>
-                <td>0</td>
+                <td>@Model.ConversionDec(Model.aOrb)</td>
                 <td>0</td>
             </tr>
 
             <tr>
                 <td>a XOR b</td>
+                <td>@Model.aXorb</td>
                 <td>0</td>
-                <td>0</td>
-                <td>0</td>
+                <td>@Model.ConversionDec(Model.aXorb)</td>
                 <td>0</td>
             </tr>
 
             <tr>
                 <td>a + b</td>
-                <td>0</td>
+                <td>@Model.aSumb</td>
                 <td>0</td>
                 <td>0</td>
                 <td>0</td>
@@ -90,7 +90,7 @@
 
             <tr>
                 <td>a • b</td>
-                <td>0</td>
+                <td>@Model.aMultb</td>
                 <td>0</td>
                 <td>0</td>
                 <td>0</td>

@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("CalculadoraBinaria")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+4bc79f657f4c1878617f8f2718b9e71a61d17c46")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+74aa58bdd1428c3757b4493943b7a611fe93e7b8")]
 [assembly: System.Reflection.AssemblyProductAttribute("CalculadoraBinaria")]
 [assembly: System.Reflection.AssemblyTitleAttribute("CalculadoraBinaria")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

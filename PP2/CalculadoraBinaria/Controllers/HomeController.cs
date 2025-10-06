@@ -14,18 +14,20 @@ public class HomeController : Controller
     }
 
     [HttpGet]
+    //Controlador encargado de llamar el index la primera vez que se ejecuta mediante un get
     public IActionResult Index()
     {
         return View();
     }
-    
-    [HttpPost]
-        public IActionResult Index( binarioModel binarioModel )
-    {
-        //string v_a = "";
-        //string V_b = "";
 
+    [HttpPost]
+    //Cuando se ejecuta el index por medio de un post, se ejecuta la accion de abajo, que manda a llamar el metodo en el modelo encargado de realizar toda la logica de negocio.
+    public IActionResult Index(binarioModel binarioModel)
+    {
+
+        binarioModel.ejecucion();
         return View(binarioModel);
+
     }
 
 
