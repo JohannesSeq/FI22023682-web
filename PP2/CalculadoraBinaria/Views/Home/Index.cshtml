@@ -1,8 +1,102 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Calculadora";
 }
 
+@model binarioModel;
+
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <h1 class="display-4">Calculadora de binarios</h1>
+</div>
+
+<form asp-action="Index">
+    <h2> Ingrese los numeros a calcular </h2>
+    <div class = "form-group">
+        <label>Numero A</label>
+        <input type="text" class="form-control" id="a" placeholder="Ingrese el primer numero binario" asp-for="a">
+        <span asp-validation-for="a" class="text-danger"></span>
+    </div>
+    <br />
+    <div class = "form-group">
+        <label for="exampleInputEmail1">Numero B</label>
+        <input type="text" class="form-control" id="b" placeholder="Ingrese el segundo numero binario" asp-for="b">
+        <span asp-validation-for="a" class="text-danger"></span>
+    </div>
+    <br />
+    <button type="submit" class="btn btn-primary">Calcular</button>
+
+</form>
+
+<div>
+    <h2>Tabla de la verdad</h2>
+
+    <table class="table">
+
+        <thead>
+            <tr>
+                <th scope="col"></th>
+                <th scope="col">Bin</th>
+                <th scope="col">Oct</th>
+                <th scope="col">Dec</th>
+                <th scope="col">Hex</th>
+            </tr>    
+        </thead>
+
+        <tbody>
+            <tr>
+                <td>a</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>                
+            </tr>
+            <tr>
+                <td>B</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+            </tr>
+            <tr>
+                <td>a AND b</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+            </tr>
+
+            <tr>
+                <td>a OR b</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+            </tr>
+
+            <tr>
+                <td>a XOR b</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+            </tr>
+
+            <tr>
+                <td>a + b</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+            </tr>
+
+            <tr>
+                <td>a • b</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+            </tr>
+
+        </tbody>
+    </table>
+
 </div>

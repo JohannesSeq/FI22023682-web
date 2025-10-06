@@ -13,10 +13,21 @@ public class HomeController : Controller
         _logger = logger;
     }
 
+    [HttpGet]
     public IActionResult Index()
     {
         return View();
     }
+    
+    [HttpPost]
+        public IActionResult Index( binarioModel binarioModel )
+    {
+        //string v_a = "";
+        //string V_b = "";
+
+        return View(binarioModel);
+    }
+
 
     public IActionResult Privacy()
     {
