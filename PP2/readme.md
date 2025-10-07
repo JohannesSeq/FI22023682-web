@@ -22,7 +22,7 @@ El número máximo permitido al multiplicar un byte por otro byte es 65025 (1000
 | Decimal              |    9           |
 | Octal                |    11          |
 | Binario              |    00001001    |
-| Hexadecimal          |                |
+| Hexadecimal          |    9           |
 
 Como nota, el codigo presentado esta capado para no admitir multiplicaciones mayores a 255 para evitar numeros fuera de rango.
 
