@@ -19,16 +19,19 @@ public class HomeController : Controller
         return View();
     }
 
-    [HttpPost]
     //Cuando se ejecuta el index por medio de un post, se ejecuta la accion de abajo, que manda a llamar el metodo en el modelo encargado de realizar toda la logica de negocio.
+    [HttpPost]
     public IActionResult Index(binarioModel binarioModel)
     {
 
+        if (!ModelState.IsValid)
+        {
+            return View("Views/Home/Index.cshtml");
+        }
+        
         binarioModel.ejecucion();
         return View(binarioModel);
-
     }
-
 
     public IActionResult Privacy()
     {

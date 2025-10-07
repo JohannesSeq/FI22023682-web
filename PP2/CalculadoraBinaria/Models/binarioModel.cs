@@ -1,6 +1,5 @@
 using System.ComponentModel.DataAnnotations;
-using Microsoft.AspNetCore.Http.HttpResults;
-using Microsoft.Extensions.WebEncoders.Testing;
+
 
 namespace CalculadoraBinaria.Models;
 
@@ -8,27 +7,28 @@ public class binarioModel
 {
 
     //Delcaracion de las variables
-    [Required] //Indicamos que si o si esta variable tiene que estar rellenada
+
+    [Required(ErrorMessage="El valor no puede estar vacio.")] //Indicamos que si o si esta variable tiene que estar rellenada
     [StringLength(8, ErrorMessage = "No se puede exceder el los 8 caracteres de un Byte.")] //Indicamos que esta variable no puede exceder los 8 caracteres, evitando que sea mayor que un Byte
     [RegularExpression("^[01]+$", ErrorMessage = "El valor debe contener únicamente 0 y 1.")] //Expresion regular que no permite que se ingresen caracteres que no sean 0 o 1
     [MultiploDeDos] // Se revisa que la longitud del numero sea un multiplo de dos
     public string a { get; set; }
 
-    [Required] //Indicamos que si o si esta variable tiene que estar rellenada
+    [Required(ErrorMessage="El valor no puede estar vacio.")] //Indicamos que si o si esta variable tiene que estar rellenada
     [StringLength(8, ErrorMessage = "No se puede exceder el los 8 caracteres de un Byte.")] //Indicamos que esta variable no puede exceder los 8 caracteres, evitando que sea mayor que un Byte
     [RegularExpression("^[01]+$", ErrorMessage = "El valor debe contener únicamente 0 y 1.")] //Expresion regular que no permite que se ingresen caracteres que no sean 0 o 1
     [MultiploDeDos] // Se revisa que la longitud del numero sea un multiplo de dos
     public string b { get; set; }
-    public string aAndb { get; set; }
-    public string aOrb { get; set; }
-    public string aXorb { get; set; }
-    public string aSumb { get; set; }
-    public string aMultb { get; set; }
+    public string? aAndb { get; set; }
+    public string? aOrb { get; set; }
+    public string? aXorb { get; set; }
+    public string? aSumb { get; set; }
+    public string? aMultb { get; set; }
 
     //Metodo que se encargada de la ejecucion de los calculos
     public void ejecucion()
     {
-
+        //Console.WriteLine("paso");
         a = Igualacion(a);
         b = Igualacion(b);
         aAndb = OperacionAnd();
@@ -36,8 +36,6 @@ public class binarioModel
         aXorb = OperacionXor();
         aSumb = Sum();
         aMultb = Mult();
-
-        //Console.WriteLine(ConteoOctal(100,"100"));
     }
 
     //Metodo que iguala la cantidad de caracteres de la entrada a 8, esto para tener mas facilidad a la hora de realizar los calculos.
@@ -185,7 +183,6 @@ public class binarioModel
         int NumBint = int.Parse(numB);
 
         int resultInt = NumAint * NumBint;
-        Console.WriteLine(resultInt);
         if (resultInt > 255)
         {
             result = "00000000";
@@ -205,6 +202,7 @@ public class binarioModel
                 resultInt /= 2;
             }
         }
+        result = Igualacion(result);
         return result;
     }
     public string ConversionDec(string x)
@@ -216,6 +214,7 @@ public class binarioModel
 
         for (int i = 7; i >= 0; i--)
         {
+
             if (x[i] == '1')
             {
                 c = 1;
@@ -420,6 +419,7 @@ private int HexInt(string h)
     {
 
         string resultDec = ConversionDec(x);
+
         int resultDecInt = int.Parse(resultDec);
 
         List<String> Octal = new List<String>();
