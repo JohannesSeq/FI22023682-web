@@ -9,7 +9,7 @@ FI22023682
 ```
 dotnet new sln -n PP2
 dotnet new mvc -o CalculadoraBinaria
-dotnet sln add .\CalculadoraBinaria\
+dotnet sln add CalculadoraBinaria
 ```
 
 ## Respuestas
@@ -27,6 +27,7 @@ El número máximo permitido al multiplicar un byte por otro byte es 65025 (1000
 Como nota, el codigo presentado esta capado para no admitir multiplicaciones mayores a 255 para evitar numeros fuera de rango.
 
 ### ¿Es posible hacer las operaciones en otra capa? Si sí, ¿en cuál sería?
+Lo ideal a la hora de trabajar con Proyectos de Modelo Vista Controlador, es realizar la manipulación de la información en una capa que este dedicada a lo mismo, puede ser desde la capa del modelo, aunque inclusive se pueden definir capas de interfaces y una capa de lógica de negocio encargada de llevar las operaciones.
 
 ## Referencias
 
@@ -36,5 +37,8 @@ Validacion de datos en C#:
 
 Como hacer una validacion de varias longitudes:
 > https://stackoverflow.com/questions/16423597/validate-a-string-to-be-one-of-two-lengths
+
+Como seleccionar la versión de DotNet:
+> https://learn.microsoft.com/en-us/dotnet/core/versions/selection
 
 Ayúdame a hacer un hazme un regular expression en C# para un annotation que admita strings solamente compuestos por 0 y 1
