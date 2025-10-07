@@ -13,7 +13,6 @@ public class HomeController : Controller
         _logger = logger;
     }
 
-    [HttpGet]
     //Controlador encargado de llamar el index la primera vez que se ejecuta mediante un get
     public IActionResult Index()
     {

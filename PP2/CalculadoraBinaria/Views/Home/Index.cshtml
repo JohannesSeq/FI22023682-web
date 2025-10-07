@@ -26,77 +26,81 @@
 
 </form>
 
-<div>
-    <h2>Tabla de la verdad</h2>
 
-    <table class="table">
 
-        <thead>
-            <tr>
-                <th scope="col"></th>
-                <th scope="col">Bin</th>
-                <th scope="col">Oct</th>
-                <th scope="col">Dec</th>
-                <th scope="col">Hex</th>
-            </tr>    
-        </thead>
+@if (@Model != null){
+    <div>
+        <h2>Tabla de la verdad</h2>
+        <table class="table">
 
-        <tbody>
-            <tr>
-                <td>a</td>
-                <td>@Model.a</td>
-                <td>0</td>
-                <td>@Model.ConversionDec(Model.a)</td>
-                <td>0</td>                
-            </tr>
-            <tr>
-                <td>b</td>
-                <td>@Model.b</td>
-                <td>0</td>
-                <td>@Model.ConversionDec(Model.b)</td>
-                <td>0</td>
-            </tr>
-            <tr>
-                <td>a AND b</td>
-                <td>@Model.aAndb</td>
-                <td>0</td>
-                <td>@Model.ConversionDec(Model.aAndb)</td>
-                <td>0</td>
-            </tr>
+            <thead>
+                <tr>
+                    <th scope="col"></th>
+                    <th scope="col">Bin</th>
+                    <th scope="col">Oct</th>
+                    <th scope="col">Dec</th>
+                    <th scope="col">Hex</th>
+                </tr>    
+            </thead>
 
-            <tr>
-                <td>a OR b</td>
-                <td>@Model.aOrb</td>
-                <td>0</td>
-                <td>@Model.ConversionDec(Model.aOrb)</td>
-                <td>0</td>
-            </tr>
+            <tbody>
+                <tr>
+                    <td>a</td>
+                    <td>@Model.a</td>
+                    <td>@Model.ConversionOct(Model.a)</td>
+                    <td>@Model.ConversionDec(Model.a)</td>
+                    <td>@Model.ConversionHex(Model.a)</td>                
+                </tr>
+                <tr>
+                    <td>b</td>
+                    <td>@Model.b</td>
+                    <td>@Model.ConversionOct(Model.b)</td>
+                    <td>@Model.ConversionDec(Model.b)</td>
+                    <td>@Model.ConversionHex(Model.b)</td>
+                </tr>
+                <tr>
+                    <td>a AND b</td>
+                    <td>@Model.aAndb</td>
+                    <td>@Model.ConversionOct(Model.aAndb)</td>
+                    <td>@Model.ConversionDec(Model.aAndb)</td>
+                    <td>@Model.ConversionHex(Model.aAndb)</td>
+                </tr>
 
-            <tr>
-                <td>a XOR b</td>
-                <td>@Model.aXorb</td>
-                <td>0</td>
-                <td>@Model.ConversionDec(Model.aXorb)</td>
-                <td>0</td>
-            </tr>
+                <tr>
+                    <td>a OR b</td>
+                    <td>@Model.aOrb</td>
+                    <td>@Model.ConversionOct(Model.aOrb)</td>
+                    <td>@Model.ConversionDec(Model.aOrb)</td>
+                    <td>@Model.ConversionHex(Model.aOrb)</td>
+                </tr>
 
-            <tr>
-                <td>a + b</td>
-                <td>@Model.aSumb</td>
-                <td>0</td>
-                <td>0</td>
-                <td>0</td>
-            </tr>
+                <tr>
+                    <td>a XOR b</td>
+                    <td>@Model.aXorb</td>
+                    <td>@Model.ConversionOct(Model.aXorb)</td>
+                    <td>@Model.ConversionDec(Model.aXorb)</td>
+                    <td>@Model.ConversionHex(Model.aXorb)</td>
+                </tr>
 
-            <tr>
-                <td>a • b</td>
-                <td>@Model.aMultb</td>
-                <td>0</td>
-                <td>0</td>
-                <td>0</td>
-            </tr>
+                <tr>
+                    <td>a + b</td>
+                    <td>@Model.aSumb</td>
+                    <td>@Model.ConversionOct(Model.aSumb)</td>
+                    <td>@Model.ConversionDec(Model.aSumb)</td>
+                    <td>@Model.ConversionHex(Model.aSumb)</td>
+                </tr>
 
-        </tbody>
-    </table>
+                <tr>
+                    <td>a • b</td>
+                    <td>@Model.aMultb</td>
+                    <td>@Model.ConversionOct(Model.aMultb)</td>
+                    <td>@Model.ConversionDec(Model.aMultb)</td>
+                    <td>@Model.ConversionHex(Model.aMultb)</td>
+                </tr>
 
-</div>
+            </tbody>
+        </table>
+    </div>
+}
+
+
