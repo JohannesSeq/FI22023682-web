@@ -1,0 +1,6 @@
+@SentenceMaker_HostAddress = http://localhost:5229
+
+GET {{SentenceMaker_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
