@@ -31,14 +31,14 @@ app.MapGet("/", () => Results.Redirect("/swagger/index.html"));
 
 //Endpoint: /include
 //Endpoint encargado de incluir una nueva palabra a la text. Recibe dos parametros, la palabra y el indice donde vamos a colocar la misma.
-app.MapPost("/include/{index:int}", ( [FromRoute]int index, [FromQuery]string value, [FromForm] string text, [FromHeader]bool xml = false ) =>
+app.MapPost("/include/{position:int}", ( [FromRoute]int position, [FromQuery]string value, [FromForm] string text, [FromHeader]bool xml = false ) =>
 {
     //Validacion del texto
     if (text.Length <= 0)
     {
          var json = new
         {
-            error = "'text' cannot be empty"
+            Error = "'text' cannot be empty"
         };
         return Results.BadRequest(json);       
     } 
@@ -47,16 +47,16 @@ app.MapPost("/include/{index:int}", ( [FromRoute]int index, [FromQuery]string va
     {
         var json = new
         {
-            error = "'value' cannot be empty"
+            Error = "'value' cannot be empty"
         };
         return Results.BadRequest(json);
 
     }
-    else if (index < 0)
+    else if (position < 0)
     {
         var json = new
         {
-            error = "'position' must be 0 or higher"
+            Error = "'position' must be 0 or higher"
         };
         return Results.BadRequest(json);
 
@@ -66,18 +66,18 @@ app.MapPost("/include/{index:int}", ( [FromRoute]int index, [FromQuery]string va
         try
         {
             String textPrev = text;
-            if (index > text.Length)
+            if (position > text.Length)
             {
                 text += value;
             }
             else
             {
-                text = text.Insert(index, value);
+                text = text.Insert(position, value);
             }
 
             if (xml)
             {
-                var xmlout = new ResultXML { ori = textPrev, newSen = text };
+                var xmlout = new ResultXML { Ori = textPrev, New = text };
 
                 var xmlSerializer = new XmlSerializer(typeof(ResultXML));
                 using var StringWriter = new StringWriter();
@@ -88,7 +88,7 @@ app.MapPost("/include/{index:int}", ( [FromRoute]int index, [FromQuery]string va
             }
             else
             {
-                var json = new { ori = textPrev, newSen = text };
+                var json = new { Ori = textPrev, New = text };
                 return Results.Ok(json);
             }
 
@@ -97,7 +97,7 @@ app.MapPost("/include/{index:int}", ( [FromRoute]int index, [FromQuery]string va
         {
             var json = new
             {
-                error = "Cannot process your request."
+                Error = "Cannot process your request."
             };
             return Results.BadRequest(json);
 
@@ -118,7 +118,7 @@ app.MapPut("/replace/{length:int}", ([FromRoute] int length, [FromQuery] string 
     {
         var json = new
         {
-            error = "'text' cannot be empty"
+            Error = "'text' cannot be empty"
         };
         return Results.BadRequest(json);
     }
@@ -127,7 +127,7 @@ app.MapPut("/replace/{length:int}", ([FromRoute] int length, [FromQuery] string 
     {
         var json = new
         {
-            error = "'value' cannot be empty"
+            Error = "'value' cannot be empty"
         };
         return Results.BadRequest(json);
     }
@@ -135,7 +135,7 @@ app.MapPut("/replace/{length:int}", ([FromRoute] int length, [FromQuery] string 
     {
         var json = new
         {
-            error = "'length' must be 0 or higher"
+            Error = "'length' must be 0 or higher"
         };
         return Results.BadRequest(json);
 
@@ -180,7 +180,7 @@ app.MapPut("/replace/{length:int}", ([FromRoute] int length, [FromQuery] string 
 
             if (xml)
             {
-                var xmlout = new ResultXML { ori = textPrev, newSen = newText };
+                var xmlout = new ResultXML { Ori = textPrev, New = newText };
 
                 var xmlSerializer = new XmlSerializer(typeof(ResultXML));
                 using var StringWriter = new StringWriter();
@@ -191,7 +191,7 @@ app.MapPut("/replace/{length:int}", ([FromRoute] int length, [FromQuery] string 
             }
             else
             {
-                var json = new { ori = textPrev, newSen = newText };
+                var json = new { Ori = textPrev, New = newText };
                 return Results.Ok(json);
             }
     
@@ -201,7 +201,7 @@ app.MapPut("/replace/{length:int}", ([FromRoute] int length, [FromQuery] string 
 
             var json = new
             {
-                error = "Cannot process your request."
+                Error = "Cannot process your request."
             };
             return Results.BadRequest(json);
 
@@ -221,7 +221,7 @@ app.MapDelete("/erase/{length:int}", ([FromRoute] int length, [FromForm] string 
     {
         var json = new
         {
-            error = "'text' cannot be empty"
+            Error = "'text' cannot be empty"
         };
         return Results.BadRequest(json);
     }
@@ -230,7 +230,7 @@ app.MapDelete("/erase/{length:int}", ([FromRoute] int length, [FromForm] string 
     {
         var json = new
         {
-            error = "'length' must be 0 or higher"
+            Error = "'length' must be 0 or higher"
         };
         return Results.BadRequest(json);
 
@@ -277,7 +277,7 @@ app.MapDelete("/erase/{length:int}", ([FromRoute] int length, [FromForm] string 
 
             if (xml)
             {
-                var xmlout = new ResultXML { ori = textPrev, newSen = newText };
+                var xmlout = new ResultXML { Ori = textPrev, New = newText };
 
                 var xmlSerializer = new XmlSerializer(typeof(ResultXML));
                 using var StringWriter = new StringWriter();
@@ -288,7 +288,7 @@ app.MapDelete("/erase/{length:int}", ([FromRoute] int length, [FromForm] string 
             }
             else
             {
-                var json = new { ori = textPrev, newSen = newText };
+                var json = new { Ori = textPrev, New = newText };
                 return Results.Ok(json);
             }
     
@@ -298,7 +298,7 @@ app.MapDelete("/erase/{length:int}", ([FromRoute] int length, [FromForm] string 
 
             var json = new
             {
-                error = "Cannot process your request."
+                Error = "Cannot process your request."
             };
             return Results.BadRequest(json);
 

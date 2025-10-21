@@ -3,8 +3,8 @@ using System.Xml.Serialization;
 [XmlRoot("Result")]
 public class ResultXML
 {
-    public string ori { get; set; }
-    public string newSen { get; set; }
+    public string Ori { get; set; }
+    public string New { get; set; }
 }
 
 [XmlRoot("Result")]
