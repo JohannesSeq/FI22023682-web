@@ -1,4 +1,11 @@
+using Microsoft.AspNetCore.Mvc;
+using System.Xml.Serialization;
+using System.Xml.XPath;
+
+
+
 var builder = WebApplication.CreateBuilder(args);
+
 
 // Add services to the container.
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -8,7 +15,7 @@ builder.Services.AddSwaggerGen();
 var app = builder.Build();
 
 //Variable de oración la cual va a ser utilizada por el Api
-string oracion = "This is just a test that shows how the 'include' endpoint works over some text of this sentence";
+//string text = "This is just a test that shows how the 'include' endpoint works over some text of this sentence";
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -17,60 +24,191 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+
 // Endpoint: /
 //Endpoint encargado de la redireccion a la documentacion del API en Swagger.
 app.MapGet("/", () => Results.Redirect("/swagger/index.html"));
 
-
-//Endpoint de Get solamente para probar el estado de la oracion, voy a ser eliminado en las futuras versiones
-app.MapGet("/read", () => oracion);
-
 //Endpoint: /include
-//Endpoint encargado de incluir una nueva palabra a la oracion. Recibe dos parametros, la palabra y el indice donde vamos a colocar la misma.
-app.MapPost("/include/{index:int}", (int index, string value) =>
+//Endpoint encargado de incluir una nueva palabra a la text. Recibe dos parametros, la palabra y el indice donde vamos a colocar la misma.
+app.MapPost("/include/{index:int}", ( [FromRoute]int index, [FromQuery]string value, [FromForm] string text, [FromHeader]bool xml = false ) =>
 {
-    String oracionPrev = oracion;
-
-    //Validaciones de los datos ingresados
-    if (value == "")
+    //Validacion del texto
+    if (text.Length <= 0)
     {
-        return Results.BadRequest("'value' cannot be empty");
+         var json = new
+        {
+            error = "'text' cannot be empty"
+        };
+        return Results.BadRequest(json);       
+    } 
+    //Validaciones de los datos ingresados
+    else if (value == "")
+    {
+        var json = new
+        {
+            error = "'value' cannot be empty"
+        };
+        return Results.BadRequest(json);
+
     }
     else if (index < 0)
     {
-        return Results.BadRequest("'position' must be 0 or higher");
+        var json = new
+        {
+            error = "'position' must be 0 or higher"
+        };
+        return Results.BadRequest(json);
 
-    } else if (index > oracion.Length)
-    {
-        return Results.BadRequest("'position' must not exceed current sentence lenght");
     }
     else
     {
         try
         {
-            oracion = oracion.Insert(index, value);
+            String textPrev = text;
+            if (index > text.Length)
+            {
+                text += value;
+            }
+            else
+            {
+                text = text.Insert(index, value);
+            }
 
-            return Results.Ok(oracion);
+            if (xml)
+            {
+                var xmlout = new ResultXML { ori = textPrev, newSen = text };
+
+                var xmlSerializer = new XmlSerializer(typeof(ResultXML));
+                using var StringWriter = new StringWriter();
+
+                xmlSerializer.Serialize(StringWriter, xmlout);
+                return Results.Content(StringWriter.ToString(), "application/xml");
+
+            }
+            else
+            {
+                var json = new { ori = textPrev, newSen = text };
+                return Results.Ok(json);
+            }
 
         }
         catch
         {
-            return Results.BadRequest("Unexpected error handling your request.");
+            var json = new
+            {
+                error = "Cannot process your request."
+            };
+            return Results.BadRequest(json);
 
         }
 
     }
 
-});
+}).DisableAntiforgery();
+
+app.MapPut("/replace/{length:int}", ([FromRoute] int length, [FromQuery] string value, [FromForm] string text, [FromHeader] bool xml = false) =>
+
+{
+
+    String textPrev = text;
+
+    //Validacion del texto
+    if (text.Length <= 0)
+    {
+        var json = new
+        {
+            error = "'text' cannot be empty"
+        };
+        return Results.BadRequest(json);
+    }
+    //Validaciones de los datos ingresados
+    else if (value == "")
+    {
+        var json = new
+        {
+            error = "'value' cannot be empty"
+        };
+        return Results.BadRequest(json);
+    }
+    else if (length < 0)
+    {
+        var json = new
+        {
+            error = "'length' must be 0 or higher"
+        };
+        return Results.BadRequest(json);
+
+    } else
+    {
+        try
+        {
+            String word = "";
+            String newText = "";
+
+            for (int i = 0; i < text.Length; i++)
+            { 
+                if (text[i] == ' ')
+                {
+
+                    if (word.Length == length)
+                    {
+                        word = value;
+                    }
+
+                    newText = newText + word + " ";
+                    word = "";
+
+                }
+                else if (i == text.Length - 1)
+                {
+                    word += text[i].ToString();
+
+                    if (word.Length == length)
+                    {
+                        word = value;
+                    }
+
+                    newText = newText + word;
+                }
+
+                else
+                {
+                    word += text[i].ToString();
+                }
+            }
+
+            if (xml)
+            {
+                var xmlout = new ResultXML { ori = textPrev, newSen = newText };
+
+                var xmlSerializer = new XmlSerializer(typeof(ResultXML));
+                using var StringWriter = new StringWriter();
+
+                xmlSerializer.Serialize(StringWriter, xmlout);
+                return Results.Content(StringWriter.ToString(), "application/xml");
+
+            }
+            else
+            {
+                var json = new { ori = textPrev, newSen = newText };
+                return Results.Ok(json);
+            }
+    
+        }
+        catch
+        {
+
+            var json = new
+            {
+                error = "Cannot process your request."
+            };
+            return Results.BadRequest(json);
+
+        }
+    }
+}).DisableAntiforgery();
 
 app.UseHttpsRedirection();
 
-
-
-
 app.Run();
-
-record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
-{
-    public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
-}
