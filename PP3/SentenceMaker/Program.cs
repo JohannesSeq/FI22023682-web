@@ -209,6 +209,104 @@ app.MapPut("/replace/{length:int}", ([FromRoute] int length, [FromQuery] string 
     }
 }).DisableAntiforgery();
 
+
+app.MapDelete("/erase/{length:int}", ([FromRoute] int length, [FromForm] string text, [FromHeader] bool xml = false) =>
+
+{
+
+    String textPrev = text;
+
+    //Validacion del texto
+    if (text.Length <= 0)
+    {
+        var json = new
+        {
+            error = "'text' cannot be empty"
+        };
+        return Results.BadRequest(json);
+    }
+    //Validaciones de los datos ingresados
+    else if (length < 0)
+    {
+        var json = new
+        {
+            error = "'length' must be 0 or higher"
+        };
+        return Results.BadRequest(json);
+
+    } else
+    {
+        try
+        {
+            String word = "";
+            String newText = "";
+
+            for (int i = 0; i < text.Length; i++)
+            { 
+                if (text[i] == ' ')
+                {
+
+                    if (word.Length == length)
+                    {
+                        word = "";
+                    }
+                    else
+                    {
+                        newText = newText + word + " ";
+                        word = "";
+                    }
+
+                }
+                else if (i == text.Length - 1)
+                {
+                    word += text[i].ToString();
+
+                    if (word.Length == length)
+                    {
+                        word = "";
+                    }
+
+                    newText = newText + word;
+                }
+
+                else
+                {
+                    word += text[i].ToString();
+                }
+            }
+
+            if (xml)
+            {
+                var xmlout = new ResultXML { ori = textPrev, newSen = newText };
+
+                var xmlSerializer = new XmlSerializer(typeof(ResultXML));
+                using var StringWriter = new StringWriter();
+
+                xmlSerializer.Serialize(StringWriter, xmlout);
+                return Results.Content(StringWriter.ToString(), "application/xml");
+
+            }
+            else
+            {
+                var json = new { ori = textPrev, newSen = newText };
+                return Results.Ok(json);
+            }
+    
+        }
+        catch
+        {
+
+            var json = new
+            {
+                error = "Cannot process your request."
+            };
+            return Results.BadRequest(json);
+
+        }
+    }
+}).DisableAntiforgery();
+
+
 app.UseHttpsRedirection();
 
 app.Run();
