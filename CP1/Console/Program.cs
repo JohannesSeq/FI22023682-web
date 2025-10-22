@@ -1,6 +1,6 @@
 ﻿public class Numbers
 {
-    private static readonly double N = 25; //
+    private static readonly double N = 25;
 
     public static double Formula(double z)
     {

@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\U\\Cuatri XII\\Progra Avanzada Web\\FI22023682-web\\CP1\\Console\\Console.csproj": {}
+    "D:\\U\\Cuatri XII\\Progra Avanzada Web\\FI22023682-web\\CP1\\console\\Console.csproj": {}
   },
   "projects": {
-    "D:\\U\\Cuatri XII\\Progra Avanzada Web\\FI22023682-web\\CP1\\Console\\Console.csproj": {
+    "D:\\U\\Cuatri XII\\Progra Avanzada Web\\FI22023682-web\\CP1\\console\\Console.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\U\\Cuatri XII\\Progra Avanzada Web\\FI22023682-web\\CP1\\Console\\Console.csproj",
+        "projectUniqueName": "D:\\U\\Cuatri XII\\Progra Avanzada Web\\FI22023682-web\\CP1\\console\\Console.csproj",
         "projectName": "Console",
-        "projectPath": "D:\\U\\Cuatri XII\\Progra Avanzada Web\\FI22023682-web\\CP1\\Console\\Console.csproj",
+        "projectPath": "D:\\U\\Cuatri XII\\Progra Avanzada Web\\FI22023682-web\\CP1\\console\\Console.csproj",
         "packagesPath": "C:\\Users\\arman\\.nuget\\packages\\",
-        "outputPath": "D:\\U\\Cuatri XII\\Progra Avanzada Web\\FI22023682-web\\CP1\\Console\\obj\\",
+        "outputPath": "D:\\U\\Cuatri XII\\Progra Avanzada Web\\FI22023682-web\\CP1\\console\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
