@@ -12,4 +12,9 @@ dotnet add package Microsoft.EntityFrameworkCore.SQLite
 dotnet add package Microsoft.EntityFrameworkCore.Design
 
 Code First:
+dotnet build
 dotnet ef migrations add InitialCreate
+dotnet ef database update
+
+https://stackoverflow.com/questions/3507498/reading-csv-files-using-c-sharp
+https://learn.microsoft.com/en-us/ef/ef6/modeling/code-first/fluent/types-and-properties
