@@ -2,7 +2,10 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Net;
 using Microsoft.VisualBasic.FileIO;
+using Microsoft.EntityFrameworkCore; // This line is crucial
+
 
 using var db = new bibliotecaContext();
 
@@ -11,12 +14,12 @@ if (!db.Title.Any())
 {
     // The table is empty
     Console.WriteLine("La base de datos está vacía, por lo que será llenada a partir de los datos del archivo CSV.");
-    Console.WriteLine("Procesando... Listo.");
+    
 
     int indiceAutor = 1;
     int indiceTag = 1;
     int indiceTitle = 1;
-    int indiceTitleTag = 1;
+    int indiceTitleTag = 0;
 
     Author CurrentAuthor = null;
     Title CurrentTitle = null;
@@ -30,9 +33,7 @@ if (!db.Title.Any())
         LectorCSV.SetDelimiters(",");
         while (!LectorCSV.EndOfData)
         {
-            //Processing row
             string[] CSVImportado = LectorCSV.ReadFields();
-            //var Autores = new List<string>();
             int n = 0;
 
 
@@ -43,7 +44,6 @@ if (!db.Title.Any())
                     if (n == 0)
                     {
 
-                        Console.WriteLine(n + "; Autor: " + Columna);
                         CurrentAuthor = db.Author.FirstOrDefault(a => a.AuthorName == Columna);
 
                         if (CurrentAuthor == null)
@@ -64,7 +64,6 @@ if (!db.Title.Any())
 
                     else if (n == 1)
                     {
-                        Console.WriteLine(n + "; Libro: " + Columna);
                         CurrentTitle = db.Title.FirstOrDefault(t => t.TitleName == Columna);
 
                         if (CurrentTitle == null)
@@ -85,7 +84,7 @@ if (!db.Title.Any())
 
                     else if (n == 2)
                     {
-                        Console.WriteLine(n + "; Categoria: " + Columna);
+                        //Console.WriteLine(n + "; Categoria: " + Columna);
 
                         string[] TagSep = Columna.Split("|");
 
@@ -111,40 +110,100 @@ if (!db.Title.Any())
 
                         //Codigo del title tag
 
-                        //Leer el array de todos los tags
+                        List<TitleTag> TitleTagArray = new List<TitleTag>();
 
                         foreach (Tag TagT in TagArray)
                         {
                             indiceTitleTag += 1;
+
                             TitleTag NTitleTag = new TitleTag { TitleTagId = indiceTitleTag, tag = TagT, title = CurrentTitle };
+
                             db.Add(NTitleTag);
                             await db.SaveChangesAsync();
+
+                            TitleTagArray.Add(NTitleTag);
+
                         }
 
-                        //Leer el current title
+                        CurrentTitle.TitleTags = TitleTagArray;
+                        db.SaveChanges();
 
-                        //Montar el query
+                        foreach (Tag iTag in TagArray)
+                        {
+                            //iTag.TitleTags = TitleTagArray;
+                            //db.SaveChanges();
+                        }
+
 
                     }
-                    n++;
-
                 }
+                n++;
             }
 
         }
     }
+    Console.WriteLine("Procesando... Listo.");
 }
-
-
-
 
 
 else
 {
     Console.WriteLine("La base de datos se está leyendo para crear los archivos TSV.");
+    int TotalTitulos = db.Title.Count();
+    Title TituloLectura = null;
+    Author AutorLectura = null;
+
+    List<String> TSVArray = new List<String>();
+
+
+    String TSVLine = "";
+
+    var Titulos = db.Title
+        .Include(t => t.author)
+        .Include(t => t.TitleTags)
+        .ThenInclude(tt => tt.tag)
+        .ToList();
+
+    foreach (var t in Titulos)
+    {
+        foreach (TitleTag tt in t.TitleTags)
+        {
+
+
+            TSVLine = t.author.AuthorName + "   " + t.TitleName + "   " + tt.tag.TagName + "\n";
+
+            if (TSVArray.Count == 0)
+            {
+                TSVArray.Add(TSVLine);
+            }
+            else
+            {
+                for (int i = 0; i < TSVArray.Count(); i++)
+                {
+
+                    if (TSVArray[i].StartsWith(TSVLine[0]))
+                    {
+                        TSVArray[i] += TSVLine;
+                    }
+                    else if (i == TSVArray.Count() - 1)
+                    {
+                        TSVArray.Add(TSVLine);
+                    }
+                }
+
+            }
+
+        }
+    }
+
+    for (int i = 0; i < TSVArray.Count(); i++)
+    {
+        String TSVPath = "../data/";
+        String FileName = TSVArray[i][0].ToString() + ".tsv";
+        TSVArray[i] = "AuthorName   TitleName   TagName\n" + TSVArray[i];
+        File.WriteAllText(Path.Combine(TSVPath, FileName), TSVArray[i]);
+
+    }
     Console.WriteLine("Procesando... Listo.");
+
 }
-
-
-
-Console.WriteLine("Procesando... Listo.");

@@ -11,7 +11,7 @@ public class bibliotecaContext : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        var path = "../Data/books.db";
+        var path = "../data/books.db";
         optionsBuilder.UseSqlite($"Data Source={path}");
     } 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
