@@ -170,7 +170,7 @@ else
         {
 
 
-            TSVLine = t.author.AuthorName + "   " + t.TitleName + "   " + tt.tag.TagName + "\n";
+            TSVLine = t.author.AuthorName + "\t" + t.TitleName + "\t" + tt.tag.TagName + "\n";
 
             if (TSVArray.Count == 0)
             {
@@ -200,7 +200,7 @@ else
     {
         String TSVPath = "../data/";
         String FileName = TSVArray[i][0].ToString() + ".tsv";
-        TSVArray[i] = "AuthorName   TitleName   TagName\n" + TSVArray[i];
+        TSVArray[i] = "AuthorName\tTitleName\tTagName\n" + TSVArray[i];
         File.WriteAllText(Path.Combine(TSVPath, FileName), TSVArray[i]);
 
     }
