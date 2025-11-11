@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Net;
 using Microsoft.VisualBasic.FileIO;
-using Microsoft.EntityFrameworkCore; // This line is crucial
+using Microsoft.EntityFrameworkCore;
 
 
 using var db = new bibliotecaContext();
