@@ -54,5 +54,3 @@ TestResult.xml
 nunit-*.xml
 
 repos/
-data/
-Migrations/
